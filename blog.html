@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script src="server.js" defer></script>
+  <title>My Blog</title>
+</head>
+<body>
+  <h1>My Blog</h1>
+
+  <ul id="posts"></ul>
+
+  <script>
+    // Fetch all posts from the server
+    async function fetchPosts() {
+      const response = await fetch('/posts');
+      const posts = await response.json();
+
+      // Display the posts on the page
+      const postsList = document.querySelector('#posts');
+      postsList.innerHTML = '';
+
+      for (const post of posts) {
+        const listItem = document.createElement('li');
+        listItem.textContent = post.title;
+        postsList.appendChild(listItem);
+      }
+    }
+
+    // Fetch the posts when the page loads
+    fetchPosts();
+  </script>
+</body>
+</html>
